@@ -41,7 +41,7 @@ def forbidden(error=None):
     res.status_code = 403
     return res
 
-from routes import create_user
+from routes import login
 from routes import update_user
 from routes import get_details
 from routes import update_pin
