@@ -42,11 +42,11 @@ def forbidden(error=None):
     return res
 
 from routes import login
-from routes import update_user
-from routes import get_details
-from routes import update_pin
-from routes import transaction
-from routes import transaction_history
+from routes import signup
+from routes import auth_status
+from routes import username_check
+from routes import post_upload
+from routes import post_getinfo
 
 
 # Add your API endpoints here

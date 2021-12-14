@@ -7,8 +7,8 @@ from app import app, forbidden
 import random
 
 
-@app.route('/login', methods=['POST'])
-def login():
+@app.route('/post_getinfo', methods=['POST'])
+def post_getinfo():
     try:
         username = request.form.get("username")
         paswd = request.form.get("pass")

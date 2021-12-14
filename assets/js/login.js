@@ -16,24 +16,23 @@ $("#login-button").click(function (event) {
       pass: pass,
     },
     success: function (response) {
-      console.log(response);
-      var parsedResponse = JSON.parse(response);
-      if (parsedResponse == "false") {
+      // console.log(response);
+      if (response == "false") {
         document.getElementById("in-user").classList.remove("d-none");
         document.getElementById("login-button").innerHTML = "LOGIN";
         document.getElementById("login-button").disabled = false;
       } else {
-        if (parsedResponse == "failed") {
+        if (response == "failed") {
           document.getElementById("in-pass").classList.remove("d-none");
           document.getElementById("login-button").innerHTML = "LOGIN";
           document.getElementById("login-button").disabled = false;
         } else {
           localStorage.setItem("username", username);
-          localStorage.setItem("auth_token", parsedResponse);
+          localStorage.setItem("auth_token", response);
           $("#form-login").fadeOut(500);
           $(".wrapper").addClass("form-success");
           setTimeout(() => {
-            window.location.pathname = "/profile.html";
+            window.location.pathname = "/home.html";
           }, 5000);
         }
       }
@@ -58,7 +57,7 @@ $("#signup-button").click(function (event) {
     if (pass === re_pass && pass.length >= 8) {
       $.ajax({
         type: "POST",
-        url: "signup.php",
+        url: "/signup",
         datatype: "html",
         data: {
           username: username,
@@ -68,14 +67,13 @@ $("#signup-button").click(function (event) {
           pass: pass,
         },
         success: function (response) {
-          var parsedResponse = JSON.parse(response);
-          if (parsedResponse != "failed") {
+          if (response != "failed") {
             localStorage.setItem("username", username);
-            localStorage.setItem("auth_token", parsedResponse);
+            localStorage.setItem("auth_token", response);
             $("#form-signup").fadeOut(500);
             $(".wrapper").addClass("form-success");
             setTimeout(() => {
-              window.location.pathname = "/profile.html";
+              window.location.pathname = "/home.html";
             }, 5000);
           } else {
             document.getElementById("sign-unav").classList.remove("d-none");
@@ -100,19 +98,18 @@ $("#user-sign").change(function (event) {
   document.getElementById("loader-user").classList.remove("d-none");
   $.ajax({
     type: "POST",
-    url: "username_check.php",
+    url: "/username_check",
     datatype: "html",
     data: {
       username: document.getElementById("user-sign").value,
     },
     success: function (response) {
-      var parsedResponse = JSON.parse(response);
-      if (parsedResponse == "success") {
+      if (response == "success") {
         document.getElementById("loader-user").classList.add("d-none");
         document.getElementById("user-unav").classList.add("d-none");
         document.getElementById("user-ava").classList.remove("d-none");
         document.getElementById("signup-button").disabled = false;
-      } else if (parsedResponse == "failed") {
+      } else if (response == "failed") {
         document.getElementById("loader-user").classList.add("d-none");
         document.getElementById("user-ava").classList.add("d-none");
         document.getElementById("user-unav").classList.remove("d-none");
